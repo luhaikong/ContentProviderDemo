@@ -1,4 +1,4 @@
-package com.lhk.cpdemo;
+package com.lhk.cpdemo.db;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -17,8 +17,8 @@ import android.support.annotation.Nullable;
 public class DatabaseProvider extends ContentProvider {
 
     private Context mContext;
-    DBHelper mDbHelper = null;
-    SQLiteDatabase db = null;
+    private DBHelper mDbHelper = null;
+    private SQLiteDatabase db = null;
 
     public static final String AUTOHORITY = "cn.scu.myprovider";
     // 设置ContentProvider的唯一标识
@@ -37,8 +37,6 @@ public class DatabaseProvider extends ContentProvider {
         // 若URI资源路径 = content://cn.scu.myprovider/job ，则返回注册码Job_Code
     }
 
-
-
     /**
      * ContentProvider创建后 或 打开系统后其它进程第一次访问该ContentProvider时 由系统进行调用
      * 注：运行在ContentProvider进程的主线程，故不能做耗时操作
@@ -51,16 +49,6 @@ public class DatabaseProvider extends ContentProvider {
         // 运行在主线程，故不能做耗时操作,此处仅作展示
         mDbHelper = new DBHelper(getContext());
         db = mDbHelper.getWritableDatabase();
-
-        // 初始化两个表的数据(先清空两个表,再各加入一个记录)
-        db.execSQL("delete from user");
-        db.execSQL("insert into user values(1,'Carson');");
-        db.execSQL("insert into user values(2,'Kobe');");
-
-        db.execSQL("delete from job");
-        db.execSQL("insert into job values(1,'Android');");
-        db.execSQL("insert into job values(2,'iOS');");
-
         return true;
     }
 
@@ -157,10 +145,10 @@ public class DatabaseProvider extends ContentProvider {
         String tableName = null;
         switch (mMatcher.match(uri)) {
             case User_Code:
-                tableName = DBHelper.USER_TABLE_NAME;
+                tableName = DBConstant.TBUser.TABLE_NAME;
                 break;
             case Job_Code:
-                tableName = DBHelper.JOB_TABLE_NAME;
+                tableName = DBConstant.TBJob.TABLE_NAME;
                 break;
         }
         return tableName;

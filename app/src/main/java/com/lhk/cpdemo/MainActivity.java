@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.lhk.cpdemo.db.DBManager;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tv;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = (TextView) findViewById(R.id.tv_content);
+
+        DBManager.initData(this);
 
         // 设置URI
         Uri uri_user = Uri.parse("content://cn.scu.myprovider/user");
