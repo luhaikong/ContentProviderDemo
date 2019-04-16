@@ -10,13 +10,11 @@ import android.widget.TextView;
 
 public class ZongHeActivity extends AppCompatActivity {
 
-    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv = (TextView) findViewById(R.id.tv_content);
 
         // 设置URI
         Uri uri_user = Uri.parse("content://cn.scu.myprovider/user");
@@ -36,8 +34,6 @@ public class ZongHeActivity extends AppCompatActivity {
         Cursor cursor = resolver.query(uri_user, new String[]{"_id","name"}, null, null, null);
         while (cursor.moveToNext()){
             System.out.println("query user:" + cursor.getInt(0) +" "+ cursor.getString(1));
-            // 将表中数据全部输出
-            tv.append("Zonghe-query user:" + cursor.getInt(0) +" "+ cursor.getString(1)+"\n");
         }
         cursor.close();
         // 关闭游标
@@ -62,8 +58,6 @@ public class ZongHeActivity extends AppCompatActivity {
         Cursor cursor2 = resolver2.query(uri_job, new String[]{"_id","job"}, null, null, null);
         while (cursor2.moveToNext()){
             System.out.println("query job:" + cursor2.getInt(0) +" "+ cursor2.getString(1));
-            // 将表中数据全部输出
-            tv.append("Zonghe-query job:" + cursor2.getInt(0) +" "+ cursor2.getString(1)+"\n");
         }
         cursor2.close();
         // 关闭游标

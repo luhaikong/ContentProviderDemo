@@ -122,7 +122,12 @@ public class DatabaseProvider extends ContentProvider {
      */
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        // 根据URI匹配 URI_CODE，从而匹配ContentProvider中相应的表名
+        // 该方法在最下面
+        String table = getTableName(uri);
+
+        // 返回删除数据的条数
+        return db.delete(table, selection, selectionArgs);
     }
 
     /**
@@ -135,7 +140,12 @@ public class DatabaseProvider extends ContentProvider {
      */
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        // 根据URI匹配 URI_CODE，从而匹配ContentProvider中相应的表名
+        // 该方法在最下面
+        String table = getTableName(uri);
+
+        // 返回修改数据的条数
+        return db.update(table,values,selection,selectionArgs);
     }
 
     /**
