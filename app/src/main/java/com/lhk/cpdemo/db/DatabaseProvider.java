@@ -126,8 +126,14 @@ public class DatabaseProvider extends ContentProvider {
         // 该方法在最下面
         String table = getTableName(uri);
 
+        // 删除数据的条数
+        int count = db.delete(table, selection, selectionArgs);
+
+        // 当该URI的ContentProvider数据发生变化时，通知外界（即访问该ContentProvider数据的访问者）
+        mContext.getContentResolver().notifyChange(uri, null);
+
         // 返回删除数据的条数
-        return db.delete(table, selection, selectionArgs);
+        return count;
     }
 
     /**
@@ -144,8 +150,13 @@ public class DatabaseProvider extends ContentProvider {
         // 该方法在最下面
         String table = getTableName(uri);
 
+        // 修改数据的条数
+        int count = db.update(table,values,selection,selectionArgs);;
+
+        // 当该URI的ContentProvider数据发生变化时，通知外界（即访问该ContentProvider数据的访问者）
+        mContext.getContentResolver().notifyChange(uri, null);
         // 返回修改数据的条数
-        return db.update(table,values,selection,selectionArgs);
+        return count;
     }
 
     /**

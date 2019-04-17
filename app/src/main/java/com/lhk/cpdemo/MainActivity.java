@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         values.put("name", "Iverson");
         // 获取ContentResolver
         ContentResolver resolver =  getContentResolver();
+        resolver.registerContentObserver(uri_user, true, new MyContentObserver(oHandler));
         // 通过ContentResolver 根据URI 向ContentProvider中插入数据
         resolver.insert(uri_user,values);
         // 通过ContentResolver 向ContentProvider中查询数据
@@ -109,13 +110,11 @@ public class MainActivity extends AppCompatActivity {
 
         // 插入表中数据
         ContentValues values = new ContentValues();
-        values.put("_id", 4);
+//        values.put("_id", 4);
         values.put("name", "Iverson");
-
 
         // 获取ContentResolver
         ContentResolver resolver =  getContentResolver();
-        resolver.registerContentObserver(uri_user, true, new MyContentObserver(oHandler));
         // 通过ContentResolver 根据URI 向ContentProvider中插入数据
         resolver.insert(uri_user,values);
     }
@@ -123,16 +122,8 @@ public class MainActivity extends AppCompatActivity {
     private void funDelete(){
         // 设置URI
         Uri uri_user = Uri.parse("content://cn.scu.myprovider/user");
-
-        // 插入表中数据
-        ContentValues values = new ContentValues();
-        values.put("_id", 5);
-        values.put("name", "Lina");
-
-
         // 获取ContentResolver
         ContentResolver resolver =  getContentResolver();
-        resolver.insert(uri_user,values);
         // 通过ContentResolver 根据URI 向ContentProvider中插入数据
         resolver.delete(uri_user,"_id=?", new String[]{"1"});
     }
@@ -141,20 +132,13 @@ public class MainActivity extends AppCompatActivity {
         // 设置URI
         Uri uri_user = Uri.parse("content://cn.scu.myprovider/user");
 
-        // 插入表中数据
-        ContentValues values = new ContentValues();
-        values.put("_id", 6);
-        values.put("name", "Mark");
-
-
         // 获取ContentResolver
         ContentResolver resolver =  getContentResolver();
-        resolver.insert(uri_user,values);
         // 通过ContentResolver 根据URI 向ContentProvider中插入数据
-        ContentValues valuesu = new ContentValues();
-        valuesu.put("_id", 2);
-        valuesu.put("name", "曾小贤");
-        resolver.update(uri_user, valuesu, "_id=?", new String[]{"2"});
+        ContentValues values = new ContentValues();
+        values.put("_id", 2);
+        values.put("name", "曾小贤");
+        resolver.update(uri_user, values, "_id=?", new String[]{"2"});
     }
 
     private void funQuery(){
